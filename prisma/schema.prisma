@@ -1,0 +1,54 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Auth{
+  id Int @id @default(autoincrement()) @unique
+  login String @unique
+  password String @default("1111")
+  role Role
+  team Team?
+  sportsman Sportsman?
+  judge Judges?
+}
+
+model Team{
+  name String @unique
+  auth Auth @relation(fields: [idTeam], references: [id])
+  idTeam Int @id @unique
+  sportsman Sportsman[]
+}
+
+model Judges{
+  name String
+  auth Auth @relation(fields: [idJudges], references: [id])
+  idJudges Int @id
+}
+
+model Sportsman{
+  name String
+  sex Sex
+  auth Auth @relation(fields: [idSportsman], references: [id])
+  idSportsman Int @id @unique
+  team Team @relation(fields: [idTeam], references: [idTeam])
+  idTeam Int
+}
+
+enum Role {
+  sportsman
+  judge
+  team
+}
+
+enum Sex {
+  male
+  female
+}
