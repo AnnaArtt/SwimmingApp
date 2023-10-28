@@ -11,7 +11,6 @@ export class SportsmanService {
     dto: CreateSportsmanDTO,
     id: number,
   ): Promise<Sportsman> {
-    const teamId = 12;
     const data = {
       name: dto.name,
       sex: dto.sex,
