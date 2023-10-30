@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prismaService/prisma.service';
+import { PrismaService } from 'src/shared/prismaService/prisma.service';
 import { CreateTeamDTO } from './dto/create-team.dto';
 import { Team } from '@prisma/client';
 
@@ -10,7 +10,7 @@ export class TeamService {
   async createTeam(dto: CreateTeamDTO, id: number): Promise<Team> {
     const data = {
       ...dto,
-      auth: {
+      user: {
         connect: {
           id: id,
         },

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { RegistrationUserDTO } from 'src/auth/dto/registration-user';
-import { PrismaService } from 'src/prismaService/prisma.service';
+import { RegistrationUserDTO } from 'src/api/auth/dto/registration-user';
+import { PrismaService } from 'src/shared/prismaService/prisma.service';
 import { CreateJudgeDTO } from './dto/create-judge.dto';
 import { Judges, Prisma } from '@prisma/client';
 
@@ -11,7 +11,7 @@ export class JudgeService {
   async createJudge(dto: CreateJudgeDTO, id: number): Promise<Judges> {
     const data = {
       ...dto,
-      auth: {
+      user: {
         connect: {
           id: id,
         },

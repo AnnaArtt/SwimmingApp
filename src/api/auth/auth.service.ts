@@ -1,8 +1,8 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { PrismaService } from '../prismaService/prisma.service';
-import { JudgeService } from 'src/judge/judge.service';
-import { TeamService } from 'src/team/team.service';
-import { SportsmanService } from 'src/sportsman/sportsman.service';
+import { PrismaService } from '../../shared/prismaService/prisma.service';
+import { JudgeService } from 'src/api/judge/judge.service';
+import { TeamService } from 'src/api/team/team.service';
+import { SportsmanService } from 'src/api/sportsman/sportsman.service';
 import { RegistrationUserDTO } from './dto/registration-user';
 import { RegistrationSportsmanDTO } from './dto/registration-sportsman';
 import { RegistrationJudgeDTO } from './dto/registration-judge';
@@ -10,7 +10,7 @@ import { RegistrationTeamDTO } from './dto/registration-team';
 import { LoginUserDTO } from './dto/login-user.dto';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
-import { Auth } from '@prisma/client';
+import { User } from '@prisma/client';
 
 @Injectable()
 export class AuthService {
@@ -61,17 +61,17 @@ export class AuthService {
       login: dto.userInfo.name,
       password: password,
     };
-    const newUser = await this.prisma.auth.create({ data });
+    const newUser = await this.prisma.user.create({ data });
     return newUser;
   }
 
-  private async generateToken(user: Auth) {
+  private async generateToken(user: User) {
     const payload = { id: user.id, role: user.id };
     return { token: this.jwtService.sign(payload) };
   }
 
-  private async validateUser(dto: LoginUserDTO): Promise<Auth> {
-    const user = await this.prisma.auth.findUnique({
+  private async validateUser(dto: LoginUserDTO): Promise<User> {
+    const user = await this.prisma.user.findUnique({
       where: {
         login: dto.login,
       },

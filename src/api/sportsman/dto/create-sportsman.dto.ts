@@ -1,7 +1,7 @@
-import { Sex } from '@prisma/client';
+import { SEX } from '@prisma/client';
 
 export class CreateSportsmanDTO {
   readonly name: string;
-  readonly sex: Sex;
+  readonly sex: SEX;
   readonly team: string;
 }

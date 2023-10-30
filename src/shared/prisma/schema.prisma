@@ -10,45 +10,46 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Auth{
+model User{
   id Int @id @default(autoincrement()) @unique
   login String @unique
   password String @default("1111")
-  role Role
+  role ROLE
   team Team?
   sportsman Sportsman?
   judge Judges?
+
 }
 
 model Team{
   name String @unique
-  auth Auth @relation(fields: [idTeam], references: [id])
-  idTeam Int @id @unique
+  user User @relation(fields: [id], references: [id])
+  id Int @id @unique
   sportsman Sportsman[]
 }
 
 model Judges{
   name String
-  auth Auth @relation(fields: [idJudges], references: [id])
-  idJudges Int @id
+  user User @relation(fields: [id], references: [id])
+  id Int @id
 }
 
 model Sportsman{
   name String
-  sex Sex
-  auth Auth @relation(fields: [idSportsman], references: [id])
-  idSportsman Int @id @unique
-  team Team @relation(fields: [idTeam], references: [idTeam])
+  sex SEX
+  user User @relation(fields: [id], references: [id])
+  id Int @id @unique
+  team Team @relation(fields: [idTeam], references: [id])
   idTeam Int
 }
 
-enum Role {
+enum ROLE {
   sportsman
   judge
   team
 }
 
-enum Sex {
-  male
-  female
+enum SEX {
+male
+female
 }

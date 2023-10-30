@@ -1,19 +1,19 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { SportsmanController } from './sportsman/sportsman.controller';
-import { SportsmanService } from './sportsman/sportsman.service';
-import { SportsmanModule } from './sportsman/sportsman.module';
-import { TeamController } from './team/team.controller';
-import { TeamService } from './team/team.service';
-import { TeamModule } from './team/team.module';
-import { JudgeController } from './judge/judge.controller';
-import { JudgeService } from './judge/judge.service';
-import { JudgeModule } from './judge/judge.module';
-import { AuthController } from './auth/auth.controller';
-import { AuthService } from './auth/auth.service';
-import { AuthModule } from './auth/auth.module';
-import { PrismaService } from './prismaService/prisma.service';
+import { SportsmanController } from './api/sportsman/sportsman.controller';
+import { SportsmanService } from './api/sportsman/sportsman.service';
+import { SportsmanModule } from './api/sportsman/sportsman.module';
+import { TeamController } from './api/team/team.controller';
+import { TeamService } from './api/team/team.service';
+import { TeamModule } from './api/team/team.module';
+import { JudgeController } from './api/judge/judge.controller';
+import { JudgeService } from './api/judge/judge.service';
+import { JudgeModule } from './api/judge/judge.module';
+import { AuthController } from './api/auth/auth.controller';
+import { AuthService } from './api/auth/auth.service';
+import { AuthModule } from './api/auth/auth.module';
+import { PrismaService } from './shared/prismaService/prisma.service';
 
 @Module({
   imports: [SportsmanModule, TeamModule, JudgeModule, AuthModule],

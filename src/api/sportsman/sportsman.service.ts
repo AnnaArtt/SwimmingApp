@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prismaService/prisma.service';
+import { PrismaService } from 'src/shared/prismaService/prisma.service';
 import { CreateSportsmanDTO } from './dto/create-sportsman.dto';
 import { Prisma, Sportsman } from '@prisma/client';
 
@@ -14,7 +14,7 @@ export class SportsmanService {
     const data = {
       name: dto.name,
       sex: dto.sex,
-      auth: {
+      user: {
         connect: {
           id: id,
         },
