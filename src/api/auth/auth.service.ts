@@ -71,18 +71,20 @@ export class AuthService {
   }
 
   private async validateUser(dto: LoginUserDTO): Promise<User> {
-    const user = await this.prisma.user.findUnique({
-      where: {
-        login: dto.login,
-      },
-    });
+    try {
+      const user = await this.prisma.user.findUnique({
+        where: {
+          login: dto.login,
+        },
+      });
 
-    const passwordEquals = await bcrypt.compare(dto.password, user.password);
+      const passwordEquals = await bcrypt.compare(dto.password, user.password);
 
-    if (user && passwordEquals) {
-      return user;
+      if (user && passwordEquals) {
+        return user;
+      }
+    } catch (error) {
+      throw new UnauthorizedException({ message: 'Wrong login or password' });
     }
-
-    throw new UnauthorizedException({ message: 'Wrong login or password' });
   }
 }
